@@ -1,0 +1,58 @@
+"use client"
+
+import { useState } from "react"
+import { HeroSection } from "./hero-section"
+import { Navigation } from "./navigation"
+import { SearchBar } from "./search-bar"
+import { MovieFilters } from "./movie-filters"
+import { MovieCarousel } from "./movie-carousel"
+import { NewMoviesSection } from "./new-movies-section"
+import { Footer } from "./footer"
+import { MovieDetail } from "./movie-detail"
+import type { Movie } from "@/types/movie"
+
+export function MovieCatalog() {
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedGenre, setSelectedGenre] = useState("all")
+  const [selectedYear, setSelectedYear] = useState("all")
+  const [selectedRating, setSelectedRating] = useState("all")
+
+  return (
+    <div className="min-h-screen bg-[#0a0e1a]">
+      <Navigation />
+
+      <section className="container mx-auto px-4 py-12 space-y-8">
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        <MovieFilters
+          selectedGenre={selectedGenre}
+          selectedYear={selectedYear}
+          selectedRating={selectedRating}
+          onGenreChange={setSelectedGenre}
+          onYearChange={setSelectedYear}
+          onRatingChange={setSelectedRating}
+        />
+      </section>
+
+      <HeroSection />
+
+      <main className="container mx-auto px-4 py-8 space-y-20">
+        <MovieCarousel
+          title="Movies Category"
+          description="Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever"
+          onMovieClick={setSelectedMovie}
+          searchQuery={searchQuery}
+          selectedGenre={selectedGenre}
+          selectedYear={selectedYear}
+          selectedRating={selectedRating}
+        />
+
+        <NewMoviesSection onMovieClick={setSelectedMovie} />
+      </main>
+
+      <Footer />
+
+      {selectedMovie && <MovieDetail movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
+    </div>
+  )
+}
