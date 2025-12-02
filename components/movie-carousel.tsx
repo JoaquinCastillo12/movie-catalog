@@ -130,45 +130,49 @@ export function MovieCarousel({
         </button>
 
         {/* Cards */}
-        <div className="flex items-center justify-center gap-8 perspective-1000">
+        <div className="flex items-center justify-center gap-8 perspective-1000 py-10">
           {getVisibleMovies().map((movie, index) => (
             <div
               key={movie.id}
               className={`relative group cursor-pointer transition-all duration-500 ${
-                index === 1 ? "scale-110 z-20" : "scale-90 opacity-70"
+                index === 1 
+                  ? "scale-110 z-20 shadow-[0_0_50px_rgba(var(--primary),0.3)]" 
+                  : "scale-90 opacity-50 hover:opacity-80 blur-[1px] hover:blur-0"
               }`}
               style={{
-                transform: index === 0 ? "rotateY(15deg)" : index === 2 ? "rotateY(-15deg)" : "rotateY(0deg)",
+                transform: index === 0 ? "rotateY(25deg) translateX(20px)" : index === 2 ? "rotateY(-25deg) translateX(-20px)" : "rotateY(0deg) translateZ(50px)",
               }}
               onClick={() => onMovieClick(movie)}
             >
-              <div className="relative w-80 h-[450px] rounded-lg overflow-hidden">
+              <div className={`relative w-80 h-[450px] rounded-xl overflow-hidden border-2 ${index === 1 ? "border-primary shadow-[0_0_20px_rgba(var(--primary),0.5)]" : "border-transparent"}`}>
                 <img
                   src={movie.poster || "/placeholder.svg"}
                   alt={movie.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e1a] via-[#0a0e1a]/40 to-transparent" />
 
                 {/* Rating Badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full">
+                <div className="absolute top-4 left-4 flex items-center gap-1 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
                   <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   <span className="text-white font-semibold">{movie.rating}/9</span>
                 </div>
 
                 {/* Time Badge */}
                 {index === 1 && (
-                  <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded text-white text-sm font-semibold">
+                  <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded text-white text-sm font-semibold shadow-[0_0_10px_rgba(var(--primary),0.5)]">
                     02:15:00
                   </div>
                 )}
 
                 {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
-                  <h3 className="text-2xl font-bold text-white">{movie.title}</h3>
-                  <p className="text-primary text-sm font-semibold">Category: {movie.genre}</p>
+                <div className={`absolute bottom-0 left-0 right-0 p-6 space-y-3 transition-all duration-300 ${index === 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                  <h3 className="text-2xl font-bold text-white drop-shadow-lg">{movie.title}</h3>
+                  <p className="text-primary text-sm font-semibold tracking-wide">Category: {movie.genre}</p>
                   <p className="text-white/80 text-sm line-clamp-2">{movie.synopsis}</p>
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-md">Details</Button>
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-lg shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:shadow-[0_0_25px_rgba(var(--primary),0.6)] transition-all border border-primary/20">
+                    Details
+                  </Button>
                 </div>
               </div>
             </div>

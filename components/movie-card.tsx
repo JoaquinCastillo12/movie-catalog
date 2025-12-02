@@ -12,7 +12,7 @@ interface MovieCardProps {
 export function MovieCard({ movie, onClick }: MovieCardProps) {
   return (
     <Card
-      className="group cursor-pointer overflow-hidden border-border bg-card hover:border-primary/50 transition-all duration-300 hover:scale-105"
+      className="group cursor-pointer overflow-hidden border-border bg-card/50 backdrop-blur-sm hover:border-primary/80 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary),0.3)]"
       onClick={onClick}
     >
       <div className="aspect-[2/3] relative overflow-hidden bg-secondary">

@@ -91,6 +91,7 @@ export function Footer() {
           {/* Subscribe */}
           <div className="md:col-span-2">
             <h3 className="text-white font-bold mb-4">Subscribe</h3>
+            {/* TODO: REPLACE GENERIC TEXT - Update subscription text */}
             <p className="text-white/60 text-sm mb-4">
               Subscribe to mailing list to get new updates on movies, tv-series and news of top movies.
             </p>
@@ -98,9 +99,9 @@ export function Footer() {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-primary/50 focus:shadow-[0_0_10px_rgba(var(--primary),0.2)] transition-all"
               />
-              <Button className="bg-primary hover:bg-primary/90 text-white px-6">SUBSCRIBE</Button>
+              <Button className="bg-primary hover:bg-primary/90 text-white px-6 shadow-[0_0_15px_rgba(var(--primary),0.5)] hover:shadow-[0_0_25px_rgba(var(--primary),0.7)] transition-all">SUBSCRIBE</Button>
             </div>
           </div>
         </div>

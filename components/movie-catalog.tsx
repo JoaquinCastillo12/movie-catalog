@@ -11,6 +11,8 @@ import { Footer } from "./footer"
 import { MovieDetail } from "./movie-detail"
 import type { Movie } from "@/types/movie"
 
+import MatrixBackground from "./ui/matrix-background"
+
 export function MovieCatalog() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
@@ -19,7 +21,9 @@ export function MovieCatalog() {
   const [selectedRating, setSelectedRating] = useState("all")
 
   return (
-    <div className="min-h-screen bg-[#0a0e1a]">
+    <div className="min-h-screen relative">
+      <MatrixBackground />
+      <div className="relative z-10">
       <Navigation />
 
       <section className="container mx-auto px-4 py-12 space-y-8">
@@ -34,12 +38,13 @@ export function MovieCatalog() {
         />
       </section>
 
-      <HeroSection />
+      {/*<HeroSection />*/}
 
       <main className="container mx-auto px-4 py-8 space-y-20">
         <MovieCarousel
-          title="Movies Category"
-          description="Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever"
+          title="Movies Theaters"
+          /* TODO: REPLACE GENERIC TEXT - Update category description */
+          description="Explore the latest and greatest films currently showing in theaters near you. From action-packed blockbusters to heartwarming dramas, find your next cinematic experience."
           onMovieClick={setSelectedMovie}
           searchQuery={searchQuery}
           selectedGenre={selectedGenre}
@@ -47,12 +52,13 @@ export function MovieCatalog() {
           selectedRating={selectedRating}
         />
 
-        <NewMoviesSection onMovieClick={setSelectedMovie} />
+       <NewMoviesSection onMovieClick={setSelectedMovie} />
       </main>
 
       <Footer />
 
       {selectedMovie && <MovieDetail movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
+      </div>
     </div>
   )
 }

@@ -34,7 +34,7 @@ export function MovieGrid({ searchQuery, selectedGenre, selectedYear, selectedRa
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 animate-in fade-in duration-500 slide-in-from-bottom-4">
       {filteredMovies.map((movie) => (
         <MovieCard key={movie.id} movie={movie} onClick={() => onMovieClick(movie)} />
       ))}
