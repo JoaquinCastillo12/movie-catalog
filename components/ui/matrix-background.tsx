@@ -35,7 +35,7 @@ const StyledWrapper = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
     grid-auto-rows: 40px;
     font-size: 32px;
-    color: rgba(0, 150, 255, 0.4);
+    color: rgba(0, 150, 255, 0.15);
     font-family: "Courier New", Courier, monospace;
     justify-content: center;
     align-content: center;
@@ -43,7 +43,7 @@ const StyledWrapper = styled.div`
 
   .jp-matrix > span {
     text-align: center;
-    text-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
+    text-shadow: 0 0 5px rgba(0, 150, 255, 0.2);
     user-select: none;
     transition:
       color 0.5s,
@@ -58,7 +58,7 @@ const StyledWrapper = styled.div`
     animation: smooth-pulse 4.1s ease-in-out infinite 0.7s;
   }
   .jp-matrix > span:nth-child(11n) {
-    color: rgba(100, 200, 255, 0.7);
+    color: rgba(100, 200, 255, 0.3);
     animation: smooth-pulse 2.9s ease-in-out infinite 1.1s;
   }
   .jp-matrix > span:nth-child(37n + 10) {
@@ -92,27 +92,27 @@ const StyledWrapper = styled.div`
   @keyframes smooth-pulse {
     0%,
     100% {
-      color: rgba(0, 150, 255, 0.4);
-      text-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
+      color: rgba(0, 150, 255, 0.15);
+      text-shadow: 0 0 5px rgba(0, 150, 255, 0.2);
     }
     30% {
-      color: rgba(100, 200, 255, 1);
+      color: rgba(100, 200, 255, 0.5);
       text-shadow:
-        0 0 10px rgba(100, 200, 255, 1),
-        0 0 15px rgba(100, 200, 255, 1);
+        0 0 10px rgba(100, 200, 255, 0.5),
+        0 0 15px rgba(100, 200, 255, 0.5);
     }
     50% {
-      color: rgba(255, 105, 180, 1);
+      color: rgba(255, 105, 180, 0.5);
       text-shadow:
-        0 0 10px rgba(255, 105, 180, 1),
-        0 0 15px rgba(255, 105, 180, 1);
+        0 0 10px rgba(255, 105, 180, 0.5),
+        0 0 15px rgba(255, 105, 180, 0.5);
     }
     70% {
-      color: #ffffff;
+      color: rgba(255, 255, 255, 0.6);
       text-shadow:
-        0 0 10px #fff,
-        0 0 15px #fff,
-        0 0 20px #fff;
+        0 0 10px rgba(255, 255, 255, 0.6),
+        0 0 15px rgba(255, 255, 255, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.6);
     }
   }`;
 

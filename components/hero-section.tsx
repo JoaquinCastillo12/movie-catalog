@@ -2,17 +2,20 @@
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+const backdropUrl = `url('/cinematic-movie-scene-dark.jpg')${('/cinematic-movie-scene-dark.jpg')! + 100}/1920/1080`;
+
 export function HeroSection() {
   return (
     <section className="relative h-[600px] overflow-hidden">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('/cinematic-movie-scene-dark.jpg')`,
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0e1a] via-[#0a0e1a]/80 to-transparent" />
+      <div className="absolute inset-0">
+        <img 
+          src={backdropUrl} 
+           
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
       </div>
 
       {/* Content */}
