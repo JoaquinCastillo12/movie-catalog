@@ -31,8 +31,7 @@ export function HeroSection() {
           </h1>
           {/* TODO: REPLACE GENERIC TEXT - Add actual description */}
           <p className="text-white/70 text-lg max-w-2xl mx-auto text-pretty leading-relaxed">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry
-            standard dummy text ever since the 1500s, when an unknown
+            Discover a world of cinematic wonders, from the latest blockbusters to timeless classics. Your ultimate destination for movie entertainment.
           </p>
           <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-base rounded-full shadow-[0_0_20px_rgba(var(--primary),0.5)] hover:shadow-[0_0_30px_rgba(var(--primary),0.7)] transition-all duration-300 border border-primary/20">
             Read more →
