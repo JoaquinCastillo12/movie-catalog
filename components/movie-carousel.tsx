@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect, useRef } from "react"
+import { ChevronLeft, ChevronRight, Play, Info } from "lucide-react"
 import type { Movie } from "@/types/movie"
 import { mockMovies } from "@/lib/mock-data"
 
@@ -25,150 +24,147 @@ export function MovieCarousel({
   selectedYear = "all",
   selectedRating = "all",
 }: MovieCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>(mockMovies)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [showRightArrow, setShowRightArrow] = useState(true)
 
   useEffect(() => {
     let filtered = mockMovies
 
-    // Filter by search query
     if (searchQuery.trim()) {
-      filtered = filtered.filter((movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      filtered = filtered.filter((movie) =>
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
     }
-
-    // Filter by genre
     if (selectedGenre !== "all") {
       filtered = filtered.filter((movie) => movie.genre === selectedGenre)
     }
-
-    // Filter by year
     if (selectedYear !== "all") {
       filtered = filtered.filter((movie) => movie.year.toString() === selectedYear)
     }
-
-    // Filter by rating
     if (selectedRating !== "all") {
       const minRating = Number.parseInt(selectedRating.replace("+", ""))
       filtered = filtered.filter((movie) => movie.rating >= minRating)
     }
 
     setFilteredMovies(filtered)
-    setCurrentIndex(0)
   }, [searchQuery, selectedGenre, selectedYear, selectedRating])
 
-  const visibleMovies = 3
-  const maxIndex = Math.max(0, filteredMovies.length - visibleMovies)
-
-  const next = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex))
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      setShowLeftArrow(scrollLeft > 10)
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10)
+    }
   }
 
-  const prev = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0))
-  }
+  useEffect(() => {
+    checkScroll()
+    const container = scrollContainerRef.current
+    container?.addEventListener("scroll", checkScroll)
+    window.addEventListener("resize", checkScroll)
+    return () => {
+      container?.removeEventListener("scroll", checkScroll)
+      window.removeEventListener("resize", checkScroll)
+    }
+  }, [filteredMovies])
 
-  const getVisibleMovies = () => {
-    return filteredMovies.slice(currentIndex, currentIndex + visibleMovies)
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current
+      const scrollAmount = clientWidth * 0.85
+      scrollContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      })
+    }
   }
 
   if (filteredMovies.length === 0) {
     return (
-      <section className="space-y-8">
-        <div className="flex items-start gap-4 border-l-4 border-primary pl-4">
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
-            <p className="text-white/60">{description}</p>
-          </div>
+      <section className="space-y-4 py-8">
+        <div className="px-4 md:px-12">
+          <h2 className="text-2xl font-semibold text-white mb-1">{title}</h2>
+          <p className="text-white/60 text-sm">{description}</p>
         </div>
         <div className="text-center py-12">
-          <p className="text-white/60 text-lg">No movies found matching your search.</p>
+          <p className="text-white/60">No se encontraron películas.</p>
         </div>
       </section>
     )
   }
 
   return (
-    <section className="space-y-8">
-      {/* Section Header */}
-      <div className="flex items-start justify-between">
-        <div className="flex items-start gap-4 border-l-4 border-primary pl-4">
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
-            <p className="text-white/60">{description}</p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={prev}
-            disabled={currentIndex === 0}
-            className="text-white/70 hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronLeft className="w-8 h-8" />
-          </button>
-          <button
-            onClick={next}
-            disabled={currentIndex >= maxIndex}
-            className="text-white/70 hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronRight className="w-8 h-8" />
-          </button>
-        </div>
+    <section className="group/section relative space-y-4 py-8">
+      {/* Header */}
+      <div className="px-4 md:px-12">
+        <h2 className="text-3xl font-bold text-white mb-1 hover:text-neon-purple transition-colors cursor-pointer inline-flex items-center gap-2">
+          {title}
+          <ChevronRight className="w-6 h-6 opacity-0 group-hover/section:opacity-100 transition-opacity text-neon-purple" />
+        </h2>
+        <p className="text-white/60 text-sm max-w-2xl">{description}</p>
       </div>
 
       {/* Carousel */}
-      <div className="relative px-20">
+      <div className="relative group/carousel">
         {/* Left Arrow */}
-        <button
-          onClick={prev}
-          disabled={currentIndex === 0}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-primary hover:text-primary/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          <div className="flex items-center">
-            <ChevronLeft className="w-16 h-16" strokeWidth={3} />
-            <ChevronLeft className="w-16 h-16 -ml-8" strokeWidth={3} />
-          </div>
-        </button>
+        {showLeftArrow && (
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-0 bottom-0 z-40 w-16 bg-gradient-to-r from-black via-black/90 to-transparent flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:w-20"
+          >
+            <ChevronLeft className="w-12 h-12 text-white drop-shadow-2xl" />
+          </button>
+        )}
 
-        {/* Cards */}
-        <div className="flex items-center justify-center gap-8 perspective-1000">
-          {getVisibleMovies().map((movie, index) => (
+        {/* Scrollable Movies */}
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-4 overflow-x-auto px-4 md:px-12 pb-8 scrollbar-hide snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {filteredMovies.map((movie) => (
             <div
               key={movie.id}
-              className={`relative group cursor-pointer transition-all duration-500 ${
-                index === 1 ? "scale-110 z-20" : "scale-90 opacity-70"
-              }`}
-              style={{
-                transform: index === 0 ? "rotateY(15deg)" : index === 2 ? "rotateY(-15deg)" : "rotateY(0deg)",
-              }}
+              className="flex-none w-[160px] md:w-[200px] h-[240px] md:h-[300px] relative group/card snap-start"
               onClick={() => onMovieClick(movie)}
             >
-              <div className="relative w-80 h-[450px] rounded-lg overflow-hidden">
+              {/* Base Poster */}
+              <div className="absolute inset-0 rounded-xl overflow-hidden cursor-pointer transition-all duration-500 group-hover/card:z-50">
                 <img
                   src={movie.poster || "/placeholder.svg"}
                   alt={movie.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-all duration-500 group-hover/card:brightness-125 group-hover/card:scale-110"
+                  loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-                {/* Rating Badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <span className="text-white font-semibold">{movie.rating}/9</span>
-                </div>
+                {/* Neon Border + Glow on Hover */}
+                <div className="absolute inset-0 border-2 border-transparent rounded-xl transition-all duration-500 
+                  group-hover/card:border-neon-purple group-hover/card:shadow-[0_0_30px_rgba(189,0,255,0.6)] 
+                  group-hover/card:ring-4 group-hover/card:ring-neon-purple/30"
+                />
 
-                {/* Time Badge */}
-                {index === 1 && (
-                  <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded text-white text-sm font-semibold">
-                    02:15:00
+                {/* Overlay on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-5">
+                  <h3 className="text-white font-bold text-lg leading-tight mb-2 drop-shadow-lg">
+                    {movie.title}
+                  </h3>
+
+                  <div className="flex items-center gap-3 text-xs mb-3">
+                    <span className="text-neon-green font-bold">{movie.rating * 10}% Match</span>
+                    <span className="text-gray-300">{movie.year}</span>
+                    <span className="text-gray-400 border border-gray-500 px-1.5 py-0.5 rounded text-[10px]">HD</span>
                   </div>
-                )}
 
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 space-y-3">
-                  <h3 className="text-2xl font-bold text-white">{movie.title}</h3>
-                  <p className="text-primary text-sm font-semibold">Category: {movie.genre}</p>
-                  <p className="text-white/80 text-sm line-clamp-2">{movie.synopsis}</p>
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-md">Details</Button>
+                  <div className="flex gap-3">
+                    <button className="bg-white text-black p-3 rounded-full hover:bg-neon-purple hover:text-white transition-all duration-300 shadow-lg hover:shadow-neon-purple/50">
+                      <Play className="w-5 h-5 fill-current" />
+                    </button>
+                    <button className="bg-white/10 backdrop-blur-sm text-white p-3 rounded-full border border-white/30 hover:border-neon-purple hover:bg-neon-purple/20 transition-all duration-300">
+                      <Info className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -176,16 +172,14 @@ export function MovieCarousel({
         </div>
 
         {/* Right Arrow */}
-        <button
-          onClick={next}
-          disabled={currentIndex >= maxIndex}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-primary hover:text-primary/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          <div className="flex items-center">
-            <ChevronRight className="w-16 h-16" strokeWidth={3} />
-            <ChevronRight className="w-16 h-16 -ml-8" strokeWidth={3} />
-          </div>
-        </button>
+        {showRightArrow && (
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-0 bottom-0 z-40 w-16 bg-gradient-to-l from-black via-black/90 to-transparent flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:w-20"
+          >
+            <ChevronRight className="w-12 h-12 text-white drop-shadow-2xl" />
+          </button>
+        )}
       </div>
     </section>
   )
