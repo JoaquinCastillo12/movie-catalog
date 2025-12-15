@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Navbar from "./navbar"
 
-import { HeroSection } from "./hero-section"
 // import { Navigation } from "./navigation"
 import { SearchBar } from "./search-bar"
 import { MovieFilters } from "./movie-filters"
@@ -13,7 +12,6 @@ import { Footer } from "./footer"
 import { MovieDetail } from "./movie-detail"
 import type { Movie } from "@/types/movie"
 
-import MatrixBackground from "./ui/matrix-background"
 
 export function MovieCatalog() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
@@ -24,7 +22,6 @@ export function MovieCatalog() {
 
   return (
     <div className="min-h-screen relative">
-      <MatrixBackground />
       <div className="relative z-10">
       <Navbar onSearch={setSearchQuery} />
 
@@ -40,7 +37,6 @@ export function MovieCatalog() {
         />
       </section>
 
-      <HeroSection />
 
       <main className="container mx-auto px-4 py-8 space-y-20 text-white/80 text-sm uppercase tracking-wider font-medium drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
         <MovieCarousel

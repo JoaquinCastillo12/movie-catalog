@@ -10,4 +10,5 @@ export interface Movie {
   director: string
   duration: number
   trailer?: string
+  movie: string
 }

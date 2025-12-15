@@ -54,7 +54,7 @@ export function MovieDetail({ movie, onClose }: MovieDetailProps) {
 
           {/* Video Player Section */}
           <div className="w-full">
-            <VideoPlayer />
+            <VideoPlayer movie={movie} />
           </div>
 
           {/* Content Grid */}

@@ -14,6 +14,7 @@ export const mockMovies: Movie[] = [
     cast: ["Leonardo DiCaprio", "Marion Cotillard", "Tom Hardy", "Ellen Page"],
     director: "Christopher Nolan",
     duration: 148,
+    movie: "/Inception.mp4"
   },
   {
     id: 2,
@@ -27,6 +28,7 @@ export const mockMovies: Movie[] = [
     cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain", "Michael Caine"],
     director: "Christopher Nolan",
     duration: 169,
+    movie: "/Interstellar.mp4"
   },
   {
     id: 3,
@@ -40,6 +42,7 @@ export const mockMovies: Movie[] = [
     cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart", "Michael Caine"],
     director: "Christopher Nolan",
     duration: 152,
+    movie: "/dark-knight-movie.mp4"
   },
   {
     id: 4,
@@ -53,6 +56,7 @@ export const mockMovies: Movie[] = [
     cast: ["John Travolta", "Uma Thurman", "Samuel L. Jackson", "Bruce Willis"],
     director: "Quentin Tarantino",
     duration: 154,
+    movie: "/pulp-fiction-movie.mp4"
   },
   {
     id: 5,
@@ -66,6 +70,7 @@ export const mockMovies: Movie[] = [
     cast: ["Tom Hanks", "Robin Wright", "Gary Sinise", "Sally Field"],
     director: "Robert Zemeckis",
     duration: 142,
+    movie: "/Forrest Gump.mp4"
   },
   {
     id: 6,
@@ -79,6 +84,7 @@ export const mockMovies: Movie[] = [
     cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss", "Hugo Weaving"],
     director: "Lana Wachowski, Lilly Wachowski",
     duration: 136,
+    movie: "/Matrix.mp4"
   },
   {
     id: 7,
@@ -92,6 +98,7 @@ export const mockMovies: Movie[] = [
     cast: ["Marlon Brando", "Al Pacino", "James Caan", "Diane Keaton"],
     director: "Francis Ford Coppola",
     duration: 175,
+    movie: "/The Godfather.mp4"
   },
   {
     id: 8,
@@ -105,6 +112,7 @@ export const mockMovies: Movie[] = [
     cast: ["Russell Crowe", "Joaquin Phoenix", "Connie Nielsen", "Oliver Reed"],
     director: "Ridley Scott",
     duration: 155,
+    movie: "/Gladiator.mp4"
   },
   {
     id: 9,
@@ -118,6 +126,7 @@ export const mockMovies: Movie[] = [
     cast: ["Jodie Foster", "Anthony Hopkins", "Scott Glenn", "Ted Levine"],
     director: "Jonathan Demme",
     duration: 118,
+    movie: "/Silence of the Lambs.mp4"
   },
   {
     id: 10,
@@ -131,6 +140,7 @@ export const mockMovies: Movie[] = [
     cast: ["Leonardo DiCaprio", "Kate Winslet", "Billy Zane", "Kathy Bates"],
     director: "James Cameron",
     duration: 194,
+    movie: "/Titanic.mp4"
   },
   {
     id: 11,
@@ -144,6 +154,7 @@ export const mockMovies: Movie[] = [
     cast: ["Jack Nicholson", "Shelley Duvall", "Danny Lloyd", "Scatman Crothers"],
     director: "Stanley Kubrick",
     duration: 146,
+    movie: "/The Shining.mp4"
   },
   {
     id: 12,
@@ -157,6 +168,7 @@ export const mockMovies: Movie[] = [
     cast: ["Ryan Gosling", "Emma Stone", "John Legend", "Rosemarie DeWitt"],
     director: "Damien Chazelle",
     duration: 128,
+    movie: "/La La Land.mp4"
   },
   {
     id: 13,
@@ -170,7 +182,8 @@ export const mockMovies: Movie[] = [
     cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong", "Choi Woo-shik"],
     director: "Bong Joon-ho",
     duration: 132,
-  },
+    movie: "/Parasite.mp4"
+    },
   {
     id: 14,
     title: "Avengers: Endgame",
@@ -183,6 +196,7 @@ export const mockMovies: Movie[] = [
     cast: ["Robert Downey Jr.", "Chris Evans", "Mark Ruffalo", "Chris Hemsworth"],
     director: "Anthony Russo, Joe Russo",
     duration: 181,
+    movie: "/Avengers: Endgame.mp4"
   },
   {
     id: 15,
@@ -196,6 +210,7 @@ export const mockMovies: Movie[] = [
     cast: ["Ralph Fiennes", "Tony Revolori", "Saoirse Ronan", "Willem Dafoe"],
     director: "Wes Anderson",
     duration: 99,
+    movie: "/The Grand Budapest Hotel.mp4"
   },
 ]
 
